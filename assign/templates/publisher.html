@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<h1 class="jumbotron">Welcome to MyLibrary</h1>
+
+ <!-- A grey horizontal navbar that becomes vertical on small screens -->
+<nav class="navbar navbar-expand-sm bg-light">
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Add Publisher</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Add Authors</a>
+    </li>
+
+  
+  
+     {% if user == thing.user %}
+        <p>
+            <a href="{% url 'edit_thing' slug=thing.slug %}">
+                Edit me!
+            </a>
+        </p>
+    {% endif %}
+  
+  
+      <li class="nav-item">
+      <a class="nav-link" href="#">Add Books</a>
+    </li>
+
+
+      <li class="nav-item mr-auto">
+      <a class="nav-link" href="/logout">Logout</a>
+    </li>
+
+      <li>
+          {% if user.is_authenticated %}
+              <p class="text-danger">Welcome : {{ user.username }}</p>
+          {% endif %}
+      </li>
+  </ul>
+
+</nav>
+
+<section class="row">
+<div class="col-md-6">
+<form action=""  method="post" class="form-group">
+
+    {% csrf_token %}
+    {{  form.as_ul }}
+
+    <input type="submit" value="Submit" class="btn btn-success">
+</form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
+
+<div class="col-md-6">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad architecto assumenda aut consequatur eaque fugiat fugit harum iusto laudantium nisi nostrum odit pariatur provident, quam quas, quasi quo vero?</p>
+</div>
+
+</section>
+
+
+</body>
+</html>
